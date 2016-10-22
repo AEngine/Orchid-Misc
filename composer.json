@@ -1,0 +1,30 @@
+{
+  "name": "aengine/orchid-misc",
+  "description": "Misc add-ons extension for Orchid Framework",
+  "keywords": [
+    "php",
+    "framework",
+    "AEngine",
+    "Orchid",
+    "Misc"
+  ],
+  "homepage": "https://dev.aengine.ru/AEngine/Orchid-Misc",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Aleksey Ilyin",
+      "email": "alksily@aengine.ru",
+      "homepage": "http://aengine.ru/",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "aengine/orchid": "~0.3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "AEngine\\Misc\\": "src/"
+    }
+  }
+}
