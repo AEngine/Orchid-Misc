@@ -5,7 +5,7 @@ namespace AEngine\Misc;
 use AEngine\Orchid\Exception\FileNotFoundException;
 use DirectoryIterator;
 use AEngine\Orchid\App;
-use AEngine\Orchid\Entity\View;
+use AEngine\Orchid\View;
 
 class Asset
 {
