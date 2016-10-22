@@ -1,6 +1,6 @@
 <?php
 
-namespace AEngine\Orchid\Extension;
+namespace AEngine\Misc;
 
 use AEngine\Orchid\App;
 
