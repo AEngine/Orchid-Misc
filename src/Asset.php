@@ -2,10 +2,10 @@
 
 namespace AEngine\Misc;
 
-use AEngine\Orchid\Exception\FileNotFoundException;
-use DirectoryIterator;
 use AEngine\Orchid\App;
+use AEngine\Orchid\Exception\FileNotFoundException;
 use AEngine\Orchid\View;
+use DirectoryIterator;
 
 class Asset
 {
@@ -23,7 +23,7 @@ class Asset
      */
     public static function resource()
     {
-        //$request = App::getInstance()->request();
+        $request = App::getInstance()->request();
         $include = [];
 
         if (static::$map) {
@@ -33,14 +33,20 @@ class Asset
             }
 
             // resources for a particular controller
-            /*if (($controller = $request->getUri(0, false)) && isset(static::$map[$controller . '/*'])) {
+            if (($controller = substr($request->getUri()->getPath(), 1))
+                && ($controller && $controller = reset(explode('/', $controller)))
+                && isset(static::$map[$controller . '/*'])
+            ) {
                 $include = array_merge($include, static::resourceIterator(static::$map[$controller . '/*']));
             }
 
             // resources for a particular address
-            if (($path = substr($request->getBasePath(), 1)) && isset(static::$map[$path])) {
+            if (($path = substr($request->getUri()->getPath(), 1))
+                &&
+                (static::$map[$path])
+            ) {
                 $include = array_merge($include, static::resourceIterator(static::$map[$path]));
-            }*/
+            }
 
             // previous checks have failed
             if (empty($include)) {
@@ -48,7 +54,7 @@ class Asset
             }
         }
 
-        return $include ? implode('\n', $include) : null;
+        return $include ? implode("\n", $include) : null;
     }
 
     /**
@@ -102,7 +108,7 @@ class Asset
             }
         }
 
-        return $template ? implode('\n', $template) : null;
+        return $template ? implode("\n", $template) : null;
     }
 
     /**
