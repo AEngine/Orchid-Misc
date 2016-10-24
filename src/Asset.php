@@ -50,7 +50,7 @@ class Asset
 
             // previous checks have failed
             if (empty($include)) {
-                $include = array_merge($include, static::resourceIterator(static::$map));
+                $include = static::resourceIterator(static::$map);
             }
         }
 
@@ -93,7 +93,6 @@ class Asset
     public static function template()
     {
         $app = App::getInstance();
-
         $template = [];
 
         // catalog manually from the templates
@@ -131,7 +130,11 @@ class Asset
                 if ($item->isDir()) {
                     $template = array_merge(
                         $template,
-                        static::templateIterator($app, $app->path($dir . '/' . $item->getBasename()), $dir)
+                        static::templateIterator(
+                            $app,
+                            $app->path($dir . '/' . $item->getBasename()),
+                            $initial ? $initial : $dir
+                        )
                     );
                 } else {
                     if ($item->isFile()) {
