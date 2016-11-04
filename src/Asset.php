@@ -1,6 +1,6 @@
 <?php
 
-namespace AEngine\Misc;
+namespace AEngine\Orchid\Misc;
 
 use AEngine\Orchid\App;
 use AEngine\Orchid\Exception\FileNotFoundException;
