@@ -278,7 +278,7 @@ class Form
             if (is_bool($value) && $value) {
                 $attr[] = $key;
             } elseif (!is_bool($value) && !is_null($value)) {
-                $attr[] = $key . '=\"' . $value . '\"';
+                $attr[] = $key . '="' . $value . '"';
             }
         }
 
