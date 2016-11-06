@@ -29,7 +29,14 @@ namespace AEngine\Orchid\Misc;
 class Form
 {
     /**
-     * An array of supported types
+     * Array of field errors
+     *
+     * @var array
+     */
+    public static $globalError = [];
+
+    /**
+     * Array of supported types
      *
      * @var array
      */
@@ -244,12 +251,18 @@ class Form
                 break;
         }
 
+        if (isset(static::$globalError[$data['name']])) {
+            $data['error'] = static::$globalError[$data['name']];
+        }
+
         if ($data['error']) {
             $data['class'][] = 'error';
         }
+
         if ($data['class']) {
             $data['class'] = implode(' ', (is_array($data['class']) ? $data['class'] : [$data['class']]));
         }
+
         if ($data['data']) {
             foreach ($data['data'] as $key => $value) {
                 $data['data-' . $key] = $value;
