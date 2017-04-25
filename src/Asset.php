@@ -33,18 +33,19 @@ class Asset
             }
 
             // resources for a particular controller
-            if (($controller = substr($request->getUri()->getPath(), 1))
-                && ($controller && $controller = reset(explode('/', $controller)))
-                && isset(static::$map[$controller . '/*'])
-            ) {
-                $include = array_merge($include, static::resourceIterator(static::$map[$controller . '/*']));
+            $controller = substr($request->getUri()->getPath(), 1);
+            if ($controller) {
+                $controller = explode('/', $controller);
+                $controller = reset($controller);
+
+                if ($controller && isset(static::$map[$controller . '/*'])) {
+                    $include = array_merge($include, static::resourceIterator(static::$map[$controller . '/*']));
+                }
             }
 
             // resources for a particular address
-            if (($path = substr($request->getUri()->getPath(), 1))
-                &&
-                (static::$map[$path])
-            ) {
+            $path = substr($request->getUri()->getPath(), 1);
+            if ($path && isset(static::$map[$path])) {
                 $include = array_merge($include, static::resourceIterator(static::$map[$path]));
             }
 
