@@ -59,7 +59,7 @@ class Crypta
      */
     public static function hash($string)
     {
-        $salt = substr(hash('whirlpool', uniqid(rand() . App::getInstance()->getSecret(), true)), 0, 12);
+        $salt = substr(hash('whirlpool', uniqid(mt_rand() . App::getInstance()->getSecret(), true)), 0, 12);
         $hash = hash('whirlpool', $salt . $string);
         $saltPos = (mb_strlen($string) >= mb_strlen($hash) ? mb_strlen($hash) : mb_strlen($string));
 
