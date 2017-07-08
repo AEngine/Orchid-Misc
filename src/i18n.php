@@ -5,6 +5,7 @@ namespace AEngine\Orchid\Misc {
     use AEngine\Orchid\App;
     use AEngine\Orchid\Exception\FileNotFoundException;
     use AEngine\Orchid\Exception\NullPointException;
+    use SplPriorityQueue;
 
     class i18n
     {
@@ -23,26 +24,62 @@ namespace AEngine\Orchid\Misc {
          */
         public static function setup(array $config = [])
         {
-            $default = [
+            $default  = [
+                'accept'  => [],
                 'locale'  => null,
                 'default' => null,
                 'force'   => null,
             ];
-            $config  = array_merge($default, $config);
+            $config   = array_merge($default, $config);
+            $priority = new SplPriorityQueue();
 
-            if ($config['default'] && !$config['locale']) {
-                $config['locale'] = $config['default'];
+            if ($config['force'] && in_array($config['force'], $config['accept'])) {
+                $priority->insert($config['force'], 10);
             }
 
-            if ($config['force'] && $config['default'] != $config['force']) {
-                $config['locale'] = $config['force'];
+            if ($config['locale'] && in_array($config['locale'], $config['accept'])) {
+                $priority->insert($config['locale'], 5);
             }
 
-            if (!$config['locale']) {
-                throw new NullPointException('Locale is null');
+            if ($config['default'] && in_array($config['default'], $config['accept'])) {
+                $priority->insert($config['default'], 0);
             }
 
-            static::$locale = static::load($config['locale']);
+            if (!count($priority)) {
+                throw new NullPointException('Locale list is empty');
+            }
+
+            static::$locale = static::load($priority);
+        }
+
+        /**
+         * Load language file for specified local
+         *
+         * @param SplPriorityQueue $priority
+         *
+         * @return array
+         * @throws FileNotFoundException
+         */
+        protected static function load($priority)
+        {
+            $app = App::getInstance();
+
+            while ($locale = $priority->extract()) {
+                foreach (['php', 'ini'] as $type) {
+                    $path = $app->path('lang:' . trim($locale) . '.' . $type);
+
+                    if ($path) {
+                        switch ($type) {
+                            case 'ini':
+                                return parse_ini_file($path, true);
+                            case 'php':
+                                return require_once $path;
+                        }
+                    }
+                }
+            }
+
+            throw new FileNotFoundException('Could not find a language file');
         }
 
         /**
@@ -63,32 +100,6 @@ namespace AEngine\Orchid\Misc {
             arsort($data, SORT_NUMERIC);
 
             return $data ? key($data) : $default;
-        }
-
-        /**
-         * Load language file for specified local
-         *
-         * @param string $locale
-         *
-         * @return array
-         * @throws FileNotFoundException
-         */
-        protected static function load($locale)
-        {
-            $app = App::getInstance();
-
-            foreach (['php', 'ini'] as $type) {
-                $path = $app->path('lang:' . trim($locale) . '.' . $type);
-
-                if ($path && file_exists($path)) {
-                    switch ($type) {
-                        case 'ini': return parse_ini_file($path, true);
-                        case 'php': return require_once $path;
-                    }
-                }
-            }
-
-            throw new FileNotFoundException('Could not find a language file');
         }
     }
 }
@@ -113,7 +124,7 @@ namespace {
                 return i18n::$locale[$key];
             }
 
-            throw new NullPointException('Key "' . $key . '" not found in locale file');
+            return '{' . $key . '}';
         }
     }
 }

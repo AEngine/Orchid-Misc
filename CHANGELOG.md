@@ -3,6 +3,9 @@
 The latest version of this file can be found at the master branch of the
 Orchid-Misc repository.
 
+## 1.0.3 (2017-07-08)
+- fix i18n add accept language list & priority when select
+
 ## 1.0.2 (2017-07-08)
 - add i18n extension
 - fix security rand
