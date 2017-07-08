@@ -18,6 +18,13 @@ namespace AEngine\Orchid\Misc {
         public static $locale = [];
 
         /**
+         * Locale code
+         *
+         * @var string
+         */
+        public static $localeCode = null;
+
+        /**
          * i18n constructor
          *
          * @param array $config
@@ -69,6 +76,8 @@ namespace AEngine\Orchid\Misc {
                     $path = $app->path('lang:' . trim($locale) . '.' . $type);
 
                     if ($path) {
+                        static::$localeCode = $locale;
+
                         switch ($type) {
                             case 'ini':
                                 return parse_ini_file($path, true);
@@ -89,7 +98,7 @@ namespace AEngine\Orchid\Misc {
          * @param string $default
          * @return mixed|string
          */
-        public static function getLanguageFromHeader($header, $default = 'en')
+        public static function getLanguageFromHeader($header, $default = null)
         {
             preg_match_all('~(?<lang>\w+(?:\-\w+|))(?:\;q=(?<q>\d(?:\.\d|))|)[\,]{0,}~i', $header, $list);
 
