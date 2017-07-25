@@ -3,6 +3,10 @@
 The latest version of this file can be found at the master branch of the
 Orchid-Misc repository.
 
+## 1.0.4 (2017-07-25)
+- add customizable error class name for Form
+- add field for locale code name
+
 ## 1.0.3 (2017-07-08)
 - fix i18n add accept language list & priority when select
 
