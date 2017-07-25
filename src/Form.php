@@ -36,6 +36,13 @@ class Form
     public static $globalError = [];
 
     /**
+     * Class name for input when error
+     *
+     * @var string
+     */
+    public static $errorClassName = 'error';
+
+    /**
      * Array of supported types
      *
      * @var array
@@ -256,7 +263,7 @@ class Form
         }
 
         if ($data['error']) {
-            $data['class'][] = 'error';
+            $data['class'][] = static::$errorClassName;
         }
 
         if ($data['class']) {
