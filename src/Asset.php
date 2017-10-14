@@ -50,7 +50,7 @@ class Asset
             }
 
             // previous checks have failed
-            if (empty($include)) {
+            if (!$include) {
                 $include = static::resourceIterator(static::$map);
             }
         }
