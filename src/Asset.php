@@ -33,7 +33,7 @@ class Asset
             }
 
             // resources for a particular controller
-            $controller = substr($request->getUri()->getPath(), 1);
+            $controller = $request->getUri()->getPath();
             if ($controller) {
                 $controller = explode('/', $controller);
                 $controller = reset($controller);
@@ -44,7 +44,7 @@ class Asset
             }
 
             // resources for a particular address
-            $path = substr($request->getUri()->getPath(), 1);
+            $path = $request->getUri()->getPath();
             if ($path && isset(static::$map[$path])) {
                 $include = array_merge($include, static::resourceIterator(static::$map[$path]));
             }
