@@ -27,30 +27,61 @@ class Asset
         $include = [];
 
         if (static::$map) {
-            // shared resources
-            if (isset(static::$map['*'])) {
-                $include = array_merge($include, static::resourceIterator(static::$map['*']));
-            }
+            $pathname = '/' . ltrim($request->getUri()->getPath(), '/');
+            $uri = explode('/', $pathname);
+            array_shift($uri); // remove first slash
 
-            // resources for a particular controller
-            $controller = $request->getUri()->getPath();
-            if ($controller) {
-                $controller = explode('/', $controller);
-                $controller = reset($controller);
+            // search masks
+            foreach (static::$map as $mask => $map) {
+                if (is_array($map)) {
+                    if ($mask === $pathname) {
+                        $include = array_merge($include, static::resourceIterator($map));
+                        continue;
+                    }
 
-                if ($controller && isset(static::$map[$controller . '/*'])) {
-                    $include = array_merge($include, static::resourceIterator(static::$map[$controller . '/*']));
+                    /* #\.html$# */
+                    if (substr($mask, 0, 1) == '#' && substr($mask, -1) == '#') {
+                        if (preg_match($mask, $pathname, $match)) {
+                            $include = array_merge($include, static::resourceIterator($map));
+                            continue;
+                        }
+                    }
+
+                    /* /example/* */
+                    if (strpos($mask, '*') !== false) {
+                        $pattern = '#^' . str_replace('\\*', '(.*)', preg_quote($mask, '#')) . '#';
+                        if (preg_match($pattern, $pathname, $match)) {
+                            $include = array_merge($include, static::resourceIterator($map));
+                            continue;
+                        }
+                    }
+
+                    /* /example/:id */
+                    if (strpos($mask, ':') !== false) {
+                        $parts = explode('/', $mask);
+                        array_shift($parts);
+
+                        if (count($uri) == count($parts)) {
+                            $matched = true;
+
+                            foreach ($parts as $index => $part) {
+                                if (':' !== substr($part, 0, 1) && $uri[$index] != $parts[$index]) {
+                                    $matched = false;
+                                    break;
+                                }
+                            }
+
+                            if ($matched) {
+                                $include = array_merge($include, static::resourceIterator($map));
+                                continue;
+                            }
+                        }
+                    }
                 }
             }
 
-            // resources for a particular address
-            $path = $request->getUri()->getPath();
-            if ($path && isset(static::$map[$path])) {
-                $include = array_merge($include, static::resourceIterator(static::$map[$path]));
-            }
-
             // previous checks have failed
-            if (!$include) {
+            if (empty($include)) {
                 $include = static::resourceIterator(static::$map);
             }
         }
