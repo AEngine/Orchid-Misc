@@ -3,7 +3,11 @@
 The latest version of this file can be found at the master branch of the
 Orchid-Misc repository.
 
-## 1.0.4 (2017-07-25)
+## 1.0.5 (2017-11-04)
+- Add processing of resource list with mask
+- Fix asset map paths
+
+### 1.0.4 (2017-07-25)
 - Add customizable error class name for Form
 - Add field for locale code name
 
