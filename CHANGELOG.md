@@ -3,7 +3,10 @@
 The latest version of this file can be found at the master branch of the
 Orchid-Misc repository.
 
-## 1.0.5 (2017-11-04)
+## 1.0.6 (2017-12-02)
+- Update dependency
+
+### 1.0.5 (2017-11-04)
 - Add processing of resource list with mask
 - Fix asset map paths
 
