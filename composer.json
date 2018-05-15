@@ -1,6 +1,6 @@
 {
   "name": "aengine/orchid-misc",
-  "description": "Misc add-ons extension for Orchid Framework",
+  "description": "Functional add-ons",
   "keywords": [
     "php",
     "framework",
@@ -19,8 +19,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
-    "aengine/orchid": "^1.0"
+    "php": ">=7.0"
   },
   "autoload": {
     "psr-4": {
