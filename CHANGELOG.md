@@ -3,7 +3,10 @@
 The latest version of this file can be found at the master branch of the
 Orchid-Misc repository.
 
-## 1.0.6 (2017-12-02)
+## 1.0.7 (2018-06-11)
+- fix dependency aengine/orchid
+
+### 1.0.6 (2017-12-02)
 - Update dependency
 
 ### 1.0.5 (2017-11-04)
