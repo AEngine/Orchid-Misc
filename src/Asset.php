@@ -115,7 +115,7 @@ class Asset
                 $path = $option;
                 $option = [];
             }
-            $ext = $option['extension'] ?? pathinfo($path)['extension'];
+            $ext = $option['extension'] ?? (pathinfo($path)['extension'] ?? '');
             $path = $path . (isset($option['version']) ? '?ver=' . $option['version'] : '');
 
             switch ($ext) {
