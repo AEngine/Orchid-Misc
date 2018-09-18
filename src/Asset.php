@@ -10,6 +10,16 @@ use DirectoryIterator;
 class Asset
 {
     /**
+     * JS (default)
+     */
+    const SCRIPT_DEFAULT = 'text/javascript';
+
+    /**
+     * ES6 Module
+     */
+    const SCRIPT_MODULE = 'module';
+
+    /**
      * Resource map
      *
      * @var array
@@ -100,16 +110,23 @@ class Asset
     {
         $include = [];
 
-        foreach ($list as $address) {
-            switch (pathinfo($address)['extension']) {
+        foreach ($list as $path => $option) {
+            if (!is_array($option)) {
+                $path = $option;
+                $option = [];
+            }
+            $ext = $option['extension'] ?? pathinfo($path)['extension'];
+            $path = $path . (isset($option['version']) ? '?ver=' . $option['version'] : '');
+
+            switch ($ext) {
                 case 'js':
-                    $include[] = '<script type="text/javascript" src="' . $address . '"></script>';
+                    $include[] = '<script type="' . ($option['type'] ?? static::SCRIPT_DEFAULT) . '" src="' . $path . '"></script>';
                     break;
                 case 'css':
-                    $include[] = '<link rel="stylesheet" type="text/css" href="' . $address . '" />';
+                    $include[] = '<link rel="stylesheet" type="text/css" href="' . $path . '" />';
                     break;
                 case 'less':
-                    $include[] = '<link rel="stylesheet/less" type="text/css" href="' . $address . '" />';
+                    $include[] = '<link rel="stylesheet/less" type="text/css" href="' . $path . '" />';
                     break;
             }
         }
