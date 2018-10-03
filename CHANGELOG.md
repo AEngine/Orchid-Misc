@@ -5,7 +5,6 @@ Orchid-Misc repository.
 
 ## 1.1.0 (2018-10-01)
 - Add asset resource options: type & version 
-- Add dependency from aengine/orchid ^1.2.0 (annotation engine)
 
 ### 1.0.7 (2018-06-11)
 - Fix dependency aengine/orchid

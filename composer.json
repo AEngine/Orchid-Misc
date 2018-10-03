@@ -20,7 +20,7 @@
   ],
   "require": {
     "php": ">=7.0",
-    "aengine/orchid": "^1.2.0"
+    "aengine/orchid": "^1.0.0"
   },
   "autoload": {
     "psr-4": {
