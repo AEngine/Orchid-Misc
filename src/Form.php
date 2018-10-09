@@ -144,12 +144,15 @@ class Form
                 ];
                 $data = array_merge($default, $attr, $data);
 
-                $form .= '<select  ' . static::getAttr($data) . '>';
+                $form .= '<select  ' . static::getAttr($data, ['type']) . '>';
                 foreach ($data['option'] as $key => $val) {
                     $form .= '<option';
                     $form .= ' value="' . $key . '"';
 
-                    if ($data['selected'] && $data['selected'] == $key) {
+                    if ($data['selected'] && (
+                            $data['selected'] == $key || (is_array($data['selected']) && in_array($key, $data['selected']))
+                        )
+                    ) {
                         $form .= ' selected';
                     }
 
