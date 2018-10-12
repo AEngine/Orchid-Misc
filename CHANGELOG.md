@@ -3,7 +3,11 @@
 The latest version of this file can be found at the master branch of the
 Orchid-Misc repository.
 
-## 1.1.0 (2018-10-01)
+## 1.1.1 (2018-10-12)
+- Fix Form select with multiply selected
+- Fix Form select removed "type" attr
+
+### 1.1.0 (2018-10-01)
 - Add asset resource options: type & version 
 
 ### 1.0.7 (2018-06-11)
