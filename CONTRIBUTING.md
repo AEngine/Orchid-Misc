@@ -1,5 +1,5 @@
 ##### Pull Requests
-1. Fork the Orchid-Misc repository
+1. Fork the this repository
 2. Create a new branch for each feature or improvement
 3. Send a pull request
 

@@ -1,4 +1,4 @@
-# Orchid-Misc changelog
+# Changelog
 
 The latest version of this file can be found at the master branch of the
 Orchid-Misc repository.

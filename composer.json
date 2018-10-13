@@ -8,13 +8,13 @@
     "Orchid",
     "Misc"
   ],
-  "homepage": "https://dev.aengine.ru/AEngine/Orchid-Misc",
+  "homepage": "https://gitlab.com/AEngine/Orchid/Memory",
   "license": "MIT",
   "authors": [
     {
       "name": "Aleksey Ilyin",
       "email": "alksily@icloud.com",
-      "homepage": "http://aengine.team/",
+      "homepage": "https://www.facebook.com/aleksey.ily",
       "role": "Developer"
     }
   ],
