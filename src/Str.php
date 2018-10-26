@@ -2,6 +2,10 @@
 
 namespace AEngine\Orchid\Misc;
 
+/**
+ * Class Str
+ * @deprecated new version in aengine/orchid package
+ */
 class Str
 {
     /**

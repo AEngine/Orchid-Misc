@@ -4,6 +4,10 @@ namespace AEngine\Orchid\Misc;
 
 use AEngine\Orchid\App;
 
+/**
+ * Class Crypta
+ * @deprecated new version in aengine/orchid package
+ */
 class Crypta
 {
     /**
